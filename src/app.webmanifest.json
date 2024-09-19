@@ -1,0 +1,32 @@
+{
+    "name": "It_Hunters",
+    "short_name": "ItHunt",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#01011f",
+    "description": "no MONEY HTML5 games",
+    "icons": [
+      {
+        "src": "/public/img/manifestIcons/dice48.jpg",
+        "sizes": "48x48",
+        "type": "image/jpg"
+      },
+      {
+        "src": "/public/img/manifestIcons/dice96.jpg",
+        "sizes": "96x96",
+        "type": "image/jpg"
+      },
+      {
+        "src": "/public/img/manifestIcons/dice192.jpg",
+        "sizes": "192x192",
+        "type": "image/jpg"
+      }
+    ],
+    "related_applications": [
+      {
+        "platform": "web",
+        "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+      }
+    ]
+  }
+  

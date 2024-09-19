@@ -1,0 +1,1275 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior:smooth
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+body {
+   background-color:  rgb(1, 1, 31);
+   &.no-scroll {
+        overflow: hidden;
+   }
+}
+
+@font-face {
+	font-family: 'Proxima Nova';
+	src: url('../public/fonts/ProximaNova-Regular.eot');
+	src: local('Proxima Nova Condensed Regular'), local('ProximaNova-Regular'),
+		url('../public/fonts/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+		url('../public/fonts/ProximaNova-Regular.woff') format('woff'),
+		url('../public/fonts/ProximaNova-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+$width: ((1040*100%)/1440);
+
+$COLOR_WHITE: rgba(255, 255, 255, 1);
+$COLOR_BGRADIENT:  linear-gradient(265.48deg, #4870FF -5.06%, #FA00FF 94.87%);
+$COLOR_BLUE:  rgba(72, 112, 255, 1);
+$COLOR_DARK: rgba(1, 1, 31, 0.4);
+
+@mixin button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 114px;
+    height: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 16px 0px rgba(138, 97, 255, 0.6);
+    background: $COLOR_BGRADIENT;
+
+    font-family: "Proxima Nova";
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.92px;
+    text-align: left;
+    color: $COLOR_WHITE;
+    
+    cursor: pointer;   
+}
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin input {
+    margin-left: 16px;
+    width: 202px;
+    height: 44px;
+    border-radius: 8px;
+    border: none;
+
+    font-family: "Proxima Nova";
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 21.92px;
+    padding-left: 14px;    
+
+    &:first-child{
+        margin-left: 0;
+    }
+    &::placeholder{
+        font-family: "Proxima Nova";
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 19.49px;
+        color: rgba(5, 13, 42, 0.4);
+    }
+}
+@mixin ownGames {
+    display: flex;
+    flex-direction: column;
+    width: 248px;
+    height: 160px;
+    border-radius: 16px;
+    background-position: 51% 70%;
+    background-size: cover;
+    background-repeat: no-repeat;
+   
+    .games__panel-name {
+        margin: 16px 0 0 12px;
+        font-family: "Proxima Nova";
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 19.49px;
+        text-align: left;
+        color: $COLOR_WHITE;
+       
+    }
+    .games__panel-discription {
+        margin: 5px 0 0 12px;
+        font-family: "Proxima Nova";
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 12.18px;
+        text-align: left;
+        color: $COLOR_WHITE;
+       
+    }
+    .games__panel-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 16px 0 0 12px;
+        width: 68px;
+        height: 22px;
+        border-radius: 12px;
+        background-color: $COLOR_BLUE;
+        
+        font-family: "Proxima Nova";
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 12.18px;                                
+        color: $COLOR_WHITE;
+        
+    }
+}
+
+.preloader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100%;
+    .preloader__image { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 150px;
+        animation: typing infinite 3s;
+        @keyframes typing {    
+            from { rotate: 0deg }     
+            to { rotate: 360deg }     
+        }
+    }
+}
+    
+.popup-overlay {
+    z-index: 1002;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .popup-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(268.31deg, rgba(79, 89, 124, 0.8) 0%, rgba(123, 135, 175, 0.8) 50.52%, rgba(63, 72, 105, 0.8) 100%);
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        text-align: center;
+        .popup__reg {
+            font-family: "Proxima Nova";
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 43.85px;
+            text-align: center;
+            color: $COLOR_WHITE;
+        }
+        .popup__form{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            .popup__input {
+                @include input();
+                margin: 0;
+                margin-top: 20px;
+            }
+            .popup__buttons {
+                display: flex;
+                button {
+                    @include button();
+                    width: 117px;
+                    height: 43px;
+                    border: none;
+                    margin: 0;
+                    margin-top: 20px;
+                    margin-left: 10px;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &:last-child {
+                        background: transparent;
+                        border: 2px solid $COLOR_WHITE;
+                    }
+                }
+                .popup__close {
+                    @include button();
+                    border: none;
+                    margin: 0;
+                    margin-top: 20px;
+                    margin-left: 10px;
+                    background: transparent;
+                    border: 2px solid $COLOR_WHITE;
+                }
+            }
+           
+        }
+       
+    }
+}
+
+.container {
+    display: block;
+    margin: auto;
+    max-width: 2560px;
+
+    .backTopPhoto{
+        position: absolute;
+        top:0;
+        left:50%;
+        transform:translate(-50%, 0);
+        width: 100%;
+        max-width: 1440px;
+        height: 100%;
+        max-height: 746px;
+    
+        background-image: url(../public/img/bg_hero.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        overflow: hidden;
+
+        filter: blur(0);   
+        mask-image: linear-gradient(to right, rgba(1, 1, 31, 1) 94%, transparent 100%), 
+                    linear-gradient(to left, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                    linear-gradient(to bottom, rgba(1, 1, 31, 1) 94%, transparent 100%);
+        
+        -webkit-mask-image: linear-gradient(to right, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                            linear-gradient(to left, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                            linear-gradient(to bottom, rgba(1, 1, 31, 1) 94%, transparent 100%);
+        
+        mask-composite: intersect;
+    }
+    .header {
+        background-color: $COLOR_DARK;
+        @include center();
+        width: 100vw;
+        max-width: 100%;
+       .header__container{
+            padding: 12px 0;
+            width: $width;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .header__nav{
+                display: flex;
+                justify-content: start;
+                margin-left: 64px;
+                .header__link{
+                    font-family: "Proxima Nova";
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 19.49px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                    margin-left: 36px;
+                    background: $COLOR_BGRADIENT;
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    color: white;
+                    transition: 0.5s;
+                    &::after{                        
+                        position: relative;
+                        top: 22px;
+                        content: " ";
+                        display: flex;
+                        width: 100%;
+                        height: 4px;
+                        background: $COLOR_BGRADIENT;
+                        border-radius: 4px 4px 0px 0px;
+                        opacity: 0;                        
+                        transition: 0.5s;
+                    }
+
+                    &:first-child{
+                        margin-left: 0;
+                    }
+
+                    &:hover{
+                        color: transparent;                       
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        &::after{
+                            opacity: 1;
+                        }
+                    }
+
+                    
+                }
+            }
+            .header__reg{
+                margin-left: 340px;
+                font-family: "Proxima Nova";
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 21.92px;
+                text-align: left;
+                color: $COLOR_WHITE;
+            }
+            .header__log{
+                margin-left: 32px;
+                @include button();
+            }
+       }    
+       .header__container-mob {
+            width: 100%;
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            .header__btn-mob {
+            display: flex;
+            width: 25px;
+            height: 2px;
+            background-color: $COLOR_WHITE;
+            position: relative;
+            z-index: 1001;
+            &::after{
+                content: "";
+                display: block;
+                width: 25px;
+                height: 2px;
+                background-color: $COLOR_WHITE;
+                position: absolute;
+                left: 0;
+                transition: transform 0.4s ease;
+                transform: translateY(6px);
+            }
+
+            &::before{
+                content: "";
+                display: block;
+                width: 25px;
+                height: 2px;
+                background-color: $COLOR_WHITE;
+                position: absolute;
+                left: 0;
+                transition: transform 0.4s ease;
+                transform: translateY(-6px);
+            }
+
+            &.active {
+                background-color: transparent; /* Исчезновение средней линии */
+            }
+
+            &.active::before {
+                transform: translateY(0) rotate(45deg);
+            }
+
+            &.active::after {
+                transform: translateY(0) rotate(-45deg);
+            }
+            }   
+            
+            .header__menu__mob {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                max-width: 100%;
+                max-height: 100%;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(1, 1, 31, 1);
+                z-index: 1000;
+                .header__nav__mob {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    a {
+                        font-family: "Proxima Nova";
+                        font-size: 20px;
+                        font-weight: 700;
+                        line-height: 19.49px;
+                        text-align: left;
+                        color: $COLOR_WHITE;
+                        padding: 10px;
+                    }
+                }
+
+                .header__reg__mob {
+                    font-family: "Proxima Nova";
+                    font-size: 20px;
+                    font-weight: 700;
+                    line-height: 19.49px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                    padding: 10px;
+                }
+
+                .header__log__mob {
+                    @include button();
+                    padding: 10px
+                }
+                
+            }
+       }   
+    }
+    .main {
+        @include center();
+        width: 100vw;
+        max-width: 100%;
+        flex-direction: column;
+        .offer {
+            max-width: 1440px;
+            @include center();
+            flex-direction: column;
+            width: $width;
+            .offer__title {
+                margin-top: 54px;
+                font-family: "Proxima Nova";
+                font-size: 48px;
+                font-weight: 700;
+                line-height: 58.46px;
+                text-align: center;
+                text-transform: uppercase;
+                color: $COLOR_WHITE;
+            }
+            .offer_slogan {
+                margin-top: 6px;
+                font-family: "Proxima Nova";
+                font-size: 28px;
+                font-weight: 400;
+                line-height: 34.1px;
+                text-align: center;
+                color: $COLOR_WHITE;
+                text-transform: capitalize;
+            }
+            .offer__buttons {
+                margin-top: 24px;
+                @include center();
+               a {
+                    @include button();
+               }
+               .offer__log {
+                    width: 160px;
+                    height: 44px;
+                    border: 2px solid $COLOR_WHITE;
+                    background: transparent;                
+               }
+               .offer__play {
+                    margin-left: 16px;
+                    width: 160px;
+                    height: 44px;   
+               }
+            }
+            .offer__join {
+                display: flex;
+                flex-direction: column;
+                margin-top: 59px;
+                width: 864px;
+                height: 150px;
+                border-radius: 16px;
+                background: linear-gradient(268.31deg, rgba(79, 89, 124, 0.4) 0%, rgba(123, 135, 175, 0.4) 50.52%, rgba(63, 72, 105, 0.4) 100%);
+                border: 1px solid rgba(58, 64, 84, 1);   
+                .offer__join-head{
+                    width: 100%;
+                    margin-top: 12px;
+                    display: flex;
+                    justify-content: space-between;
+                    .title {
+                        margin-left: 16px;
+                        font-family: "Proxima Nova";
+                        font-size: 22px;
+                        font-weight: 700;
+                        line-height: 26.8px;
+                        text-align: center;
+                        color: $COLOR_WHITE;
+                        text-transform: uppercase;
+                    }
+                    .advantages {
+                        display: flex;
+                        margin-right: 16px;
+                        .advantage{
+                            display: flex;
+                            margin-left: 24px;
+                            &:first-child{
+                                margin-left: 0;
+                            }
+                            img {
+                                width: 36px;
+                                height: 36px;
+                            }
+                            p {
+                                margin-left: 6px;
+                                font-family: "Proxima Nova";
+                                font-size: 12px;
+                                font-weight: 600;
+                                line-height: 14.62px;
+                                text-align: left;
+                                color: $COLOR_WHITE;
+                            }
+                        }
+                    }
+                }             
+            }
+            .offer__user {
+                display: flex;
+                margin: 12px 16px 0px 16px;
+                .offer__user-input{
+                   @include input();
+                }   
+                .offer__user-button{
+                    margin-left: 16px;
+                    @include button();
+                    width: 160px;
+                    height: 44px;  
+                    border: none;  
+                    text-transform: capitalize;             
+                }
+            }
+            .offer__privacy {
+                display: flex;
+                margin: 12px 0 0 16px;
+                .offer__privacy-text {
+                    margin-left: 8px;
+                    font-family: "Proxima Nova";
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 17.05px;
+                    text-align: center;
+                    color: $COLOR_WHITE;
+                    a {
+                        font-family: "Proxima Nova";
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 17.05px;
+                        text-align: center;
+                        color: $COLOR_WHITE;
+                        border-bottom: 0.1px solid $COLOR_WHITE;
+                    }
+                }
+            }
+        }
+        .games {
+            margin-top: 54px;
+            @include center();
+            align-items: start;
+            flex-direction: column;
+            width: $width;
+            max-width: 1440px;
+            .games__title {
+                display: flex;
+                justify-content: start;
+                font-family: "Proxima Nova";
+                font-size: 36px;
+                font-weight: 700;
+                line-height: 43.85px;
+                text-align: left;
+                color: $COLOR_WHITE;
+                
+            }
+            .games__more {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .games__slogan{
+                    display: flex;
+                    justify-content: start;
+                    font-family: "Proxima Nova";
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.49px;
+                    text-align: center;
+                    color: $COLOR_WHITE;
+                }
+                .games__link{
+                    font-family: "Proxima Nova";
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 19.49px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                    border-bottom: 0.1px solid $COLOR_WHITE;
+                }
+            }
+            .games__box {
+                margin-top: 24px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .games__left {
+                    max-width: 512px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    .games__panel {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 16px;
+                        &:nth-child(3n-2){
+                            margin-left: 0;
+                        }
+                        &:nth-child(1n+4){
+                            margin-top: 16px;
+                        }
+                        &:hover {
+                            .games__panel-img {
+                                box-shadow: 0px 0px 24px -4px rgba(72, 112, 255, 0.2);                                
+                            }
+                            .games__panel-name {
+                                color: $COLOR_BLUE;
+                            }
+                        }
+                        .games__panel-img {
+                            width: 160px;
+                            height: 120px;
+                            border-radius: 16px;
+                            transition: 0.5;
+                        }
+                        .games__panel-name {
+                            margin-top: 6px;
+                            font-family: "Proxima Nova";
+                            font-size: 16px;
+                            font-weight: 700;
+                            line-height: 19.49px;
+                            text-align: left;
+                            color: $COLOR_WHITE;                            
+                            transition: 0.5s;
+                        }
+                        .games__panel-discription {
+                            font-family: "Proxima Nova";
+                            font-size: 12px;
+                            font-weight: 300;
+                            line-height: 14.62px;
+                            text-align: left;
+                            color: rgba(255, 255, 255, 0.5);
+                        }
+                    }
+                }
+                .games__right {
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 16px;
+                    max-width: 512px;
+                    .games__own {
+                        display: flex;
+                        .games__panel {
+                            &:nth-child(1) {
+                                @include ownGames();
+                                background-image: url("../public/img/games/DynamiteRichesMW_BigWin_385x190.jpeg");
+                                position: relative;
+                                overflow: hidden;
+                                z-index: 1;
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    border-radius: 16px;
+                                    background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0) 70.36%);
+                                    z-index: 0;
+                                }
+                                .games__panel-name {                                    
+                                    z-index: 2;
+                                }
+                                .games__panel-discription {                                   
+                                    z-index: 2;
+                                }
+                                .games__panel-button {                                    
+                                    z-index: 2;
+                                }
+                            }
+                            &:nth-child(2) {
+                                margin-left: 16px;
+                                @include ownGames();
+                                background-image: url("../public/img/games/GOTM_GatorGold_385x190.jpeg");
+                            }
+                        }
+                    }
+                    .games__deals {
+                        margin-top: 16px;
+                        display: flex;
+                        flex-direction: column;
+                        .games__deals-img {
+                            width: 512px;
+                            height: 120px;
+                            border-radius: 16px;                            
+                        }
+                        .games__deals__discription {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            .games__deals__text {
+                                display: flex;
+                                flex-direction: column;
+                                .games__deals__text-name {
+                                    margin-top: 6px;
+                                    font-family: "Proxima Nova";
+                                    font-size: 16px;
+                                    font-weight: 700;
+                                    line-height: 19.49px;
+                                    text-align: left;
+                                    color: $COLOR_WHITE;                                    
+                                }
+                                .games__deals__text-info {
+                                    font-family: "Proxima Nova";
+                                    font-size: 12px;
+                                    font-weight: 300;
+                                    line-height: 14.62px;
+                                    text-align: left;
+                                    color: $COLOR_WHITE;
+                                    opacity: 0.5;
+                                }
+                            }
+                            .games__deals__discription-link {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                width: 81px;
+                                height: 22px;
+                                border-radius: 17px;
+                                background-color: $COLOR_BLUE;
+                                border: 1px solid rgba(0, 0, 0, 1);
+
+                                font-family: "Proxima Nova";
+                                font-size: 10px;
+                                font-weight: 600;
+                                line-height: 12.18px;
+                                text-align: left;
+                                color: $COLOR_WHITE;
+                            }
+                        }
+                    }
+                }
+                .games__warning{
+                    margin-top: 24px;
+                    font-family: "Proxima Nova";
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 17.05px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                }
+            }
+            .games__warning {
+                margin-top: 24px;
+                font-family: "Proxima Nova";
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 17.05px;
+                text-align: left;
+                color: $COLOR_WHITE;
+            }
+        }
+        .contact {
+            padding-top: 74px;
+            display: flex;
+            justify-content: space-between;
+            width: $width;
+            max-width: 1440px;
+            
+            .contactBack{
+                position: absolute;
+                top: 1000px;
+                left:50%;
+                transform:translate(-50%, 0);
+                width: 100%;
+                max-width: 1440px;
+                height: 100%;
+                max-height: 746px;
+            
+                background-image: url(../public/img/bg_contact.jpeg);
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: 50% 75%;
+                z-index: -1;
+                overflow: hidden;
+        
+                filter: blur(0);   
+                mask-image: linear-gradient(to top, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                            linear-gradient(to right, rgba(1, 1, 31, 1) 94%, transparent 100%),  
+                            linear-gradient(to left, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                            linear-gradient(to bottom, rgba(1, 1, 31, 1) 94%, transparent 100%);
+                
+                -webkit-mask-image: linear-gradient(to top, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                                    linear-gradient(to right, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                                    linear-gradient(to left, rgba(1, 1, 31, 1) 94%, transparent 100%),
+                                    linear-gradient(to bottom, rgba(1, 1, 31, 1) 94%, transparent 100%);
+                
+                mask-composite: intersect;
+            }
+
+            .contact__content {
+                .contact__title {
+                    font-family: "Proxima Nova";
+                    font-size: 36px;
+                    font-weight: 700;
+                    line-height: 43.85px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                }
+                .contact__slogan {
+                    margin-top: 2px;
+                    font-family: "Proxima Nova";
+                    font-size: 16px;
+                    font-weight: 400;
+                    line-height: 19.49px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                }
+                .contact__form {
+                    margin-top: 25px;
+                    display: flex;
+                    flex-direction: column;
+                    .contact__user-input {
+                        @include input();
+                        width: 400px;
+                        height: 44px;
+                        margin: 0;
+                        &:first-child{
+                            margin-top: 0;
+                        }
+                        margin-top: 16px;
+                    }
+                    .contact__user-area {
+                        margin-top: 16px;
+                        width: 400px;
+                        height: 128px;
+                        border-radius: 8px;                        
+                        padding-left: 14px;
+                        padding-top: 12px;
+                        resize: none;
+
+                        font-family: "Proxima Nova";
+                        font-size: 18px;
+                        font-weight: 700;
+                        line-height: 21.92px;
+                        &::placeholder {
+                            font-family: "Proxima Nova";
+                            font-size: 16px;
+                            font-weight: 400;
+                            line-height: 19.49px;
+                            text-align: left;
+                            color: rgba(5, 13, 42, 0.4);
+                        }
+                    }
+                    .contact__form__confirm {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 11px;
+                        .contact__form__confirm__privacy {
+                            display: flex;
+                            align-items: center;                        
+                            .contact__form__confirm__privacy-text {
+                                font-family: "Proxima Nova";
+                                font-size: 14px;
+                                font-weight: 400;
+                                line-height: 17.05px;
+                                text-align: center;
+                                color: $COLOR_WHITE;
+                                margin-left: 8px;
+                                a {
+                                    font-family: "Proxima Nova";
+                                    font-size: 14px;
+                                    font-weight: 400;
+                                    line-height: 17.05px;
+                                    text-align: center;
+                                    color: $COLOR_WHITE;
+                                    border-bottom: 0.1px solid $COLOR_WHITE;
+                                }
+                            }
+                        }
+                        .contact__form__confirm {
+                            @include button();
+                            width: 124px;
+                            height: 36px;
+                            border: none;
+                            margin: 0;
+                        }
+                    }
+                    
+                }
+            }
+        }
+
+    }
+    .footer {
+        padding-top: 24px;
+        background-color: $COLOR_DARK;
+        @include center();
+        width: 100vw;
+        max-width: 100%;
+        .footer__container {
+            width: $width;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            .footer__docs {
+                display: flex;
+                a {
+                    font-family: "Proxima Nova";
+                    font-size: 18px;
+                    font-weight: 700;
+                    line-height: 21.92px;
+                    text-align: left;
+                    color: $COLOR_WHITE;
+                }
+            }
+            .footer__discription {
+                margin-top: 16px;
+                font-family: "Proxima Nova";
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 17.05px;
+                text-align: center;
+                color: $COLOR_WHITE;
+            }
+            .footer__social {
+                margin-top: 24px;
+                padding: 24px 0;
+                border-top: 1px solid rgba(255, 255, 255, 0.4);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                .footer__company {
+                    font-family: "Proxima Nova";
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 17.05px;
+                    text-align: center;
+                    color: $COLOR_WHITE;
+                }
+                .footer__icons {
+                    display: flex;
+                    a {
+                        margin-left: 12px;
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1440px) {
+    .container {
+        .header {
+           .header__container{
+                width: 95%;
+                padding: 20px 20px;
+                .header__nav{
+                    margin-left: 0;
+                    .header__link {
+                        white-space: nowrap;
+                    }
+                }
+                .header__reg{
+                    margin-left: 0;
+                }
+                .header__log{
+                    margin-left: 0;
+                }
+           }       
+        }
+        .main {           
+            .games {
+                width: 95%;
+                padding: 0 20px;
+            }    
+            .contact {
+                width: 95%;
+                padding-left: 20px;
+                padding-right: 20px;
+            }      
+        }        
+    }
+}
+
+@media (max-width: 1100px) {
+  .container {
+    .main {
+        .games {
+            .games__box {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;    
+                .games__right {
+                    margin-top: 24px;
+                    margin-left: 0;
+                }            
+            }
+        }
+        .contact {
+            .contactBack {
+                top: 1335px;
+            }
+        }
+    }
+  }
+}
+
+@media (max-width: 985px) {
+    .container {
+      .main {
+          .offer {
+            .offer__join {
+                width: auto;
+                height: auto;
+                .offer__join-head {
+                    display: flex;
+                    flex-direction: column;
+                    .advantages {
+                       margin: 12px 16px 0 16px;
+                    }
+                }
+
+                .offer__form {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .offer__user {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 0;
+                        margin-top: 12px;
+
+                        input {
+                            margin: 12px 0 0 0;
+                        }
+
+                        button {
+                            margin: 12px 0 0 0;
+                        }
+                    }
+                    .offer__privacy {
+                        margin: 0;
+                        padding: 12px 0;
+                    }
+                }
+            }
+          }
+          .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .contactBack {
+                top: 1975px;
+            }
+          }
+      }
+    }
+}
+
+@media (max-width: 785px) {
+    .container {
+        .header {
+            .header__container {
+                display: none;
+            }
+            .header__container-mob {
+               display: flex;     
+           }   
+        }
+    }
+}
+
+@media (max-width: 540px) {
+    .container {
+        .main {
+            .offer{
+                .offer__join {
+                    .offer__join-head {
+                        .title {
+                            margin: 0;
+                            padding: 5px;
+                        }
+                        .advantages {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            .advantage {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+            }
+            .games {
+                .games__box {
+                    .games__left {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        .games__panel {
+                            margin: 0;
+                            padding: 10px;                            
+                        }
+                    }
+                    .games__right {
+                        align-items: center;
+                        .games__own {
+                            justify-content: center;
+                            .games__panel {
+                               &:nth-child(n) {
+                                    width: 200px;
+                               }                                
+                            }
+                        }
+                        .games__deals {
+                            width: 90%;
+                            display: flex;
+                            justify-content: center;
+                            .games__deals-img {
+                                width: 100%;
+                                object-fit: cover;
+                            }
+                            .games__deals__discription {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+            .contact {                
+                .contactBack {
+                    top: 2355px;
+                }
+              }
+        }
+        .footer {
+            .footer__container {
+                .footer__docs {
+                    display: flex;
+                    flex-direction: column;
+                    a {
+                        text-align: center;
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 319px) and (max-width: 440px){
+    .container {
+        .main {
+            .offer {
+                .offer__buttons {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    a{
+                        
+                        &:last-child{
+                            margin-top: 10px;
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+            .games {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                .games__more {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .games__box {
+                    .games__right {
+                        .games__own {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            .games__panel {
+                                margin-top: 12px;
+                            }
+                        }
+                    }
+                }
+                .games__warning {
+                    text-align: center;
+                }
+            }
+            .contact {
+                .contactBack {
+                    top: 3320px;
+                }
+                .contact__content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 95%;
+                    .contact__slogan {
+                        text-align: center;
+                    }
+                    .contact__form {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        .contact__user-input {
+                            width: 90%;
+                        }
+                        .contact__user-area {
+                            width: 90%;
+                        }
+                        .contact__form__confirm {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            .contact__form__confirm {
+                                margin-top: 11px;
+                            }
+                        }
+                    }
+                }
+                .contact__img {
+                    margin-top: 12px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        width: 90%;
+                        object-fit: cover;
+                    }
+                }
+            }
+        }
+    }
+}
+
