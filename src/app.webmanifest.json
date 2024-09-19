@@ -1,7 +1,7 @@
 {
     "name": "It_Hunters",
     "short_name": "ItHunt",
-    "start_url": ".",
+    "start_url": "https://sega-hub.github.io/ItHutners.github.io/",
     "display": "standalone",
     "background_color": "#01011f",
     "description": "no MONEY HTML5 games",
@@ -25,7 +25,7 @@
     "related_applications": [
       {
         "platform": "web",
-        "url": "https://play.google.com/store/apps/details?id=cheeaun.hackerweb"
+        "url": "https://sega-hub.github.io/ItHutners.github.io/"
       }
     ]
   }
